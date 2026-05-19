@@ -34,9 +34,12 @@ export default function Header() {
         </a>
 
         <nav
-          className="hidden items-center gap-7 text-sm font-semibold text-white/75 lg:flex"
+          className="hidden items-center gap-5 text-sm font-semibold text-white/75 lg:flex xl:gap-7"
           aria-label="Main navigation"
         >
+          <a className="hover:text-red-400" href="#specials">
+            Specials
+          </a>
           <a className="hover:text-red-400" href="#packages">
             Packages
           </a>
@@ -84,28 +87,39 @@ export default function Header() {
           <div className="absolute right-0 mt-3 w-64 overflow-hidden rounded-2xl border border-red-500/25 bg-black/95 p-3 shadow-[0_0_35px_rgba(220,38,38,0.28)] backdrop-blur-xl">
             <a
               className="block rounded-xl px-4 py-3 text-sm font-bold text-white/80 hover:bg-red-600/20 hover:text-white"
+              href="#specials"
+            >
+              Specials
+            </a>
+
+            <a
+              className="block rounded-xl px-4 py-3 text-sm font-bold text-white/80 hover:bg-red-600/20 hover:text-white"
               href="#packages"
             >
               Packages
             </a>
+
             <a
               className="block rounded-xl px-4 py-3 text-sm font-bold text-white/80 hover:bg-red-600/20 hover:text-white"
               href="#showcase"
             >
               Services
             </a>
+
             <a
               className="block rounded-xl px-4 py-3 text-sm font-bold text-white/80 hover:bg-red-600/20 hover:text-white"
               href="#addons"
             >
               Add-Ons
             </a>
+
             <a
               className="block rounded-xl px-4 py-3 text-sm font-bold text-white/80 hover:bg-red-600/20 hover:text-white"
               href="#area"
             >
               Service Area
             </a>
+
             <a
               className="block rounded-xl px-4 py-3 text-sm font-bold text-white/80 hover:bg-red-600/20 hover:text-white"
               href="#contact"

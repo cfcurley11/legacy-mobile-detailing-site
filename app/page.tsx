@@ -11,6 +11,8 @@ const phoneDisplay = "(505) 643-2170";
 const phoneHref = "tel:15056432170";
 const smsHref = "sms:15056432170";
 const phoneRaw = "+15056432170";
+const instagramUrl = "https://www.instagram.com/LegacyDetailing_505";
+const tiktokUrl = "https://www.tiktok.com/@Legacy.Detail505";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -111,6 +113,49 @@ const packages = [
     label: "Exterior Hand Wash",
     bestFor: "Best for a clean, sharp exterior finish without the drive-through wash look.",
     items: ["Foam pre-soak + hand wash", "Wheels & tires deep cleaned", "Tire shine", "Streak-free dry"],
+  },
+];
+
+const specialOffers = [
+  {
+    title: "Spring Clean Package",
+    price: "$129",
+    priceLabel: "Starting at",
+    badge: "Limited Time Spring Special",
+    description:
+      "A seasonal refresh package with exterior hand wash, wheel and tire cleaning, interior vacuum, wipe down, light touch-up, and floor mat cleaning.",
+    image: "/images/SpringClean.png",
+    alt: "Legacy Mobile Detailing Spring Clean Package flyer starting at $129",
+  },
+  {
+    title: "Express Exterior Wash",
+    price: "$49",
+    priceLabel: "Starting at",
+    badge: "Quick Exterior Service",
+    description:
+      "A fast exterior wash option with foam cannon pre-soak, hand wash, wheel and tire cleaning, tire shine, clean windows, spray wax protection, and microfiber dry.",
+    image: "/images/ExtWash.png",
+    alt: "Legacy Mobile Detailing Express Exterior Wash flyer starting at $49",
+  },
+  {
+    title: "RV & Motorhome Detailing",
+    price: "$12/ft",
+    priceLabel: "Starting at",
+    badge: "RV & Motorhome Service",
+    description:
+      "Mobile detailing for larger vehicles with basic wash, enhanced detail, premium detail, and complete detail options based on vehicle size and condition.",
+    image: "/images/RVsMotorHome.png",
+    alt: "Legacy Mobile Detailing RV and Motorhome detailing flyer",
+  },
+  {
+    title: "Monthly Maintenance Program",
+    price: "$99/mo",
+    priceLabel: "Plans from",
+    badge: "Year-Round Maintenance",
+    description:
+      "Recurring maintenance plans designed to keep vehicles looking clean year-round, with Essential, Premium, and Elite monthly options available.",
+    image: "/images/MonthlyMaint.png",
+    alt: "Legacy Mobile Detailing monthly maintenance program flyer",
   },
 ];
 
@@ -235,6 +280,7 @@ const localBusinessSchema = {
   logo: `${siteUrl}/images/logo.png`,
   description:
     "Mobile interior and exterior car detailing service based in Farmington, NM and serving surrounding areas.",
+  sameAs: [instagramUrl, tiktokUrl],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Farmington",
@@ -245,20 +291,20 @@ const localBusinessSchema = {
     "@type": "Place",
     name: area,
   })),
-  priceRange: "$69-$179+",
-  makesOffer: packages.map((pkg) => ({
+  priceRange: "$49-$199+",
+  makesOffer: [...packages, ...specialOffers].map((offer) => ({
     "@type": "Offer",
-    name: pkg.name,
+    name: "name" in offer ? offer.name : offer.title,
     priceSpecification: {
       "@type": "PriceSpecification",
       priceCurrency: "USD",
-      price: pkg.price.replace("$", ""),
-      description: `Starting at ${pkg.price}`,
+      price: offer.price.replace("$", "").replace("/mo", "").replace("/ft", ""),
+      description: `${"priceLabel" in offer ? offer.priceLabel : "Starting at"} ${offer.price}`,
     },
     itemOffered: {
       "@type": "Service",
-      name: pkg.name,
-      description: pkg.bestFor,
+      name: "name" in offer ? offer.name : offer.title,
+      description: "bestFor" in offer ? offer.bestFor : offer.description,
     },
   })),
 };
@@ -325,21 +371,21 @@ export default function LegacyMobileDetailingPage() {
                   Legacy Mobile Detailing brings professional interior and exterior detailing directly to your home, workplace, or driveway in Farmington and surrounding areas.
                 </p>
 
-<div className="mt-8 flex w-full max-w-full flex-col gap-4 sm:w-auto sm:flex-row">
-  <a
-    href="#contact"
-    className="w-full rounded-full bg-red-600 px-7 py-4 text-center text-sm font-black uppercase tracking-[0.18em] text-white shadow-[0_0_35px_rgba(220,38,38,0.5)] transition hover:bg-red-500 sm:w-auto"
-  >
-    Request a Detail
-  </a>
+                <div className="mt-8 flex w-full max-w-full flex-col gap-4 sm:w-auto sm:flex-row">
+                  <a
+                    href="#contact"
+                    className="w-full rounded-full bg-red-600 px-7 py-4 text-center text-sm font-black uppercase tracking-[0.18em] text-white shadow-[0_0_35px_rgba(220,38,38,0.5)] transition hover:bg-red-500 sm:w-auto"
+                  >
+                    Request a Detail
+                  </a>
 
-  <a
-    href={smsHref}
-    className="w-full rounded-full border border-white/20 bg-white/10 px-7 py-4 text-center text-sm font-black uppercase tracking-[0.18em] text-white backdrop-blur transition hover:border-red-400 hover:text-red-300 sm:w-auto"
-  >
-    Send Text
-  </a>
-</div>
+                  <a
+                    href={smsHref}
+                    className="w-full rounded-full border border-white/20 bg-white/10 px-7 py-4 text-center text-sm font-black uppercase tracking-[0.18em] text-white backdrop-blur transition hover:border-red-400 hover:text-red-300 sm:w-auto"
+                  >
+                    Send Text
+                  </a>
+                </div>
 
                 <div className="mt-8 grid max-w-full grid-cols-1 gap-3 text-sm font-semibold text-white/80 min-[420px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
                   {heroFeatures.map((item, index) => (
@@ -382,6 +428,79 @@ export default function LegacyMobileDetailingPage() {
                   <a href={phoneHref} className="mt-2 block text-2xl font-black text-white hover:text-red-400 sm:text-3xl">
                     {phoneDisplay}
                   </a>
+
+ <div className="mt-6 grid gap-3 sm:grid-cols-2">
+  <a
+    href={instagramUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-black/70 p-4 text-left transition duration-300 hover:-translate-y-1 hover:border-red-400/70 hover:shadow-[0_0_30px_rgba(220,38,38,0.22)]"
+  >
+    <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_top_left,rgba(239,68,68,0.22),transparent_55%)]" />
+    <div className="relative flex items-center gap-3">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-red-500/30 bg-red-600/15 text-red-400 transition group-hover:bg-red-600 group-hover:text-white">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-5 w-5"
+          aria-hidden="true"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+        </svg>
+      </div>
+
+      <div className="min-w-0">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-white">
+          Instagram
+        </p>
+        <p className="mt-1 truncate text-xs text-white/55">
+          @LegacyDetailing_505
+        </p>
+      </div>
+    </div>
+  </a>
+
+  <a
+    href={tiktokUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-black/70 p-4 text-left transition duration-300 hover:-translate-y-1 hover:border-red-400/70 hover:shadow-[0_0_30px_rgba(220,38,38,0.22)]"
+  >
+    <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_top_left,rgba(239,68,68,0.22),transparent_55%)]" />
+    <div className="relative flex items-center gap-3">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-red-500/30 bg-red-600/15 text-red-400 transition group-hover:bg-red-600 group-hover:text-white">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-5 w-5"
+          aria-hidden="true"
+        >
+          <path d="M14 3v11.5a4.5 4.5 0 1 1-4.5-4.5" />
+          <path d="M14 6c1.2 2.4 3 3.8 6 4" />
+        </svg>
+      </div>
+
+      <div className="min-w-0">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-white">
+          TikTok
+        </p>
+        <p className="mt-1 truncate text-xs text-white/55">
+          @Legacy.Detail505
+        </p>
+      </div>
+    </div>
+  </a>
+</div>
                 </div>
               </div>
             </Reveal>
@@ -401,6 +520,102 @@ export default function LegacyMobileDetailingPage() {
               </a>
             </div>
           </Reveal>
+        </section>
+
+        {/* Current Specials */}
+        <section id="specials" className="border-b border-white/10 bg-black/92 px-4 py-20 backdrop-blur-sm sm:px-5 md:py-28">
+          <div className="mx-auto max-w-7xl">
+            <Reveal>
+              <div className="mx-auto max-w-3xl text-center">
+                <p className="text-sm font-black uppercase tracking-[0.32em] text-red-400">Current Specials & Packages</p>
+                <h2 className="mt-4 text-4xl font-black uppercase tracking-tight md:text-6xl">
+                  Featured Detailing Offers
+                </h2>
+                <p className="mt-5 text-lg leading-8 text-white/65">
+                  Seasonal specials, express washes, RV detailing, and monthly maintenance options. Tap any flyer to view it larger.
+                </p>
+              </div>
+            </Reveal>
+
+            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+              {specialOffers.map((offer, index) => (
+                <Reveal key={offer.title} delay={delayClasses[index] ?? "delay-0"}>
+                  <article className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-red-500/20 bg-zinc-950 shadow-[0_0_45px_rgba(220,38,38,0.12)] transition duration-300 hover:-translate-y-1 hover:border-red-500/60 hover:shadow-[0_0_55px_rgba(220,38,38,0.22)]">
+                    <a
+                      href={offer.image}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative block h-[420px] overflow-hidden bg-black sm:h-[520px] xl:h-[390px]"
+                      aria-label={`View ${offer.title} flyer`}
+                    >
+                      <Image
+                        src={offer.image}
+                        alt={offer.alt}
+                        fill
+                        sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
+                        className="object-cover object-top transition duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/10 opacity-70" />
+                      <div className="absolute left-4 top-4 max-w-[88%] rounded-full border border-red-400/50 bg-black/80 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-red-300 backdrop-blur">
+                        {offer.badge}
+                      </div>
+                    </a>
+
+ <div className="flex flex-1 flex-col p-6">
+  <p className="text-sm font-black uppercase tracking-[0.24em] text-white/45">
+    {offer.priceLabel}
+  </p>
+
+  <div className="mt-2 min-h-[84px]">
+    <h3 className="text-2xl font-black uppercase leading-7 text-white">
+      {offer.title}
+    </h3>
+  </div>
+
+  <div className="mt-3 min-h-[64px]">
+    <div className="inline-flex items-end gap-2 rounded-2xl border border-red-500/30 bg-red-950/25 px-4 py-3 shadow-[0_0_24px_rgba(220,38,38,0.16)]">
+      <span className="text-xs font-black uppercase tracking-[0.22em] text-white/45">
+        From
+      </span>
+      <span className="text-4xl font-black leading-none text-red-500">
+        {offer.price}
+      </span>
+    </div>
+  </div>
+
+  <p className="mt-4 min-h-[120px] text-sm leading-6 text-white/62">
+    {offer.description}
+  </p>
+
+  <div className="mt-auto grid gap-3">
+
+                        <a
+                          href={offer.image}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="rounded-full border border-red-500/50 px-5 py-3 text-center text-sm font-black uppercase tracking-wide text-white transition hover:bg-red-600"
+                        >
+                          View Flyer
+                        </a>
+                        <a
+                          href="#contact"
+                          className="rounded-full bg-red-600 px-5 py-3 text-center text-sm font-black uppercase tracking-wide text-white transition hover:bg-red-500"
+                        >
+                          Request This Offer
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+
+            <Reveal>
+              <p className="mt-8 text-center text-sm italic text-white/45">
+                Specials, pricing, and final service totals may vary by vehicle size, condition, selected add-ons, and availability.
+              </p>
+            </Reveal>
+          </div>
         </section>
 
         {/* Packages */}
@@ -444,12 +659,12 @@ export default function LegacyMobileDetailingPage() {
                       ))}
                     </ul>
                     <p className="mt-6 flex-1 text-sm leading-6 text-white/55">{pkg.bestFor}</p>
-<a
-  href="#contact"
-  className="mt-7 block rounded-full border border-red-500/50 px-5 py-3 text-center text-sm font-black uppercase tracking-wide text-white transition hover:bg-red-600"
->
-  Request This Package
-</a>
+                    <a
+                      href="#contact"
+                      className="mt-7 block rounded-full border border-red-500/50 px-5 py-3 text-center text-sm font-black uppercase tracking-wide text-white transition hover:bg-red-600"
+                    >
+                      Request This Package
+                    </a>
                   </article>
                 </Reveal>
               ))}
@@ -683,6 +898,109 @@ export default function LegacyMobileDetailingPage() {
                     </a>
                   </div>
                 </div>
+
+ <div className="mt-6 overflow-hidden rounded-[1.75rem] border border-red-500/20 bg-gradient-to-br from-zinc-950 via-black to-red-950/30 p-6 shadow-[0_0_45px_rgba(220,38,38,0.14)]">
+  <div className="flex items-start justify-between gap-4">
+    <div>
+      <p className="text-sm font-black uppercase tracking-[0.28em] text-red-400">
+        Follow Legacy
+      </p>
+      <p className="mt-2 text-sm leading-6 text-white/55">
+        See recent details, updates, specials, and behind-the-scenes work.
+      </p>
+    </div>
+
+    <div className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-red-500/30 bg-red-600/10 text-red-400 shadow-[0_0_30px_rgba(220,38,38,0.2)] sm:flex">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-7 w-7"
+        aria-hidden="true"
+      >
+        <path d="M7 17a5 5 0 0 1 10 0" />
+        <circle cx="12" cy="8" r="4" />
+        <path d="M2 20c2.5-3 5.8-4.5 10-4.5S19.5 17 22 20" />
+      </svg>
+    </div>
+  </div>
+
+  <div className="mt-6 grid gap-4 sm:grid-cols-2">
+    <a
+      href={instagramUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-black/70 p-5 transition duration-300 hover:-translate-y-1 hover:border-red-400/70 hover:shadow-[0_0_35px_rgba(220,38,38,0.22)]"
+    >
+      <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_top_left,rgba(239,68,68,0.28),transparent_55%)]" />
+      <div className="relative flex items-center gap-4">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-red-500/30 bg-red-600/15 text-red-400 transition group-hover:bg-red-600 group-hover:text-white">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-6 w-6"
+            aria-hidden="true"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+          </svg>
+        </div>
+
+        <div className="min-w-0">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-white">
+            Instagram
+          </p>
+          <p className="mt-1 truncate text-sm text-white/55">
+            @LegacyDetailing_505
+          </p>
+        </div>
+      </div>
+    </a>
+
+    <a
+      href={tiktokUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-black/70 p-5 transition duration-300 hover:-translate-y-1 hover:border-red-400/70 hover:shadow-[0_0_35px_rgba(220,38,38,0.22)]"
+    >
+      <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_top_left,rgba(239,68,68,0.28),transparent_55%)]" />
+      <div className="relative flex items-center gap-4">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-red-500/30 bg-red-600/15 text-red-400 transition group-hover:bg-red-600 group-hover:text-white">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-6 w-6"
+            aria-hidden="true"
+          >
+            <path d="M14 3v11.5a4.5 4.5 0 1 1-4.5-4.5" />
+            <path d="M14 6c1.2 2.4 3 3.8 6 4" />
+          </svg>
+        </div>
+
+        <div className="min-w-0">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-white">
+            TikTok
+          </p>
+          <p className="mt-1 truncate text-sm text-white/55">
+            @Legacy.Detail505
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
               </div>
             </Reveal>
 
@@ -715,7 +1033,7 @@ export default function LegacyMobileDetailingPage() {
 
                   <label className="block">
                     <span className="mb-2 block text-sm font-bold text-white/75">Vehicle Type</span>
-                    <input name="vehicle" type="text" placeholder="Car, truck, SUV, etc." className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none transition placeholder:text-white/35 focus:border-red-500" />
+                    <input name="vehicle" type="text" placeholder="Car, truck, SUV, RV, etc." className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none transition placeholder:text-white/35 focus:border-red-500" />
                   </label>
                 </div>
 
@@ -724,6 +1042,10 @@ export default function LegacyMobileDetailingPage() {
                     <span className="mb-2 block text-sm font-bold text-white/75">Package</span>
                     <select required name="package" defaultValue="" className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none transition focus:border-red-500">
                       <option value="" disabled>Select a package</option>
+                      <option>Spring Clean Package - Starting at $129</option>
+                      <option>Express Exterior Wash - Starting at $49</option>
+                      <option>RV & Motorhome Detailing - Starting at $12/ft</option>
+                      <option>Monthly Maintenance Program - Starting at $99/mo</option>
                       <option>Basic Interior - Starting at $79</option>
                       <option>Full Interior - Starting at $129</option>
                       <option>Premium Interior - Starting at $179</option>
@@ -766,19 +1088,19 @@ export default function LegacyMobileDetailingPage() {
       {/* Mobile Sticky CTA */}
       <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-red-500/30 bg-black/95 p-3 shadow-[0_-10px_35px_rgba(220,38,38,0.2)] backdrop-blur-xl md:hidden">
         <div className="mx-auto grid max-w-md grid-cols-2 gap-3">
-<a
-  href="#contact"
-  className="rounded-full bg-red-600 px-4 py-3 text-center text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_0_24px_rgba(220,38,38,0.45)]"
->
-  Request Detail
-</a>
+          <a
+            href="#contact"
+            className="rounded-full bg-red-600 px-4 py-3 text-center text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_0_24px_rgba(220,38,38,0.45)]"
+          >
+            Request Detail
+          </a>
 
-<a
-  href={phoneHref}
-  className="rounded-full border border-white/15 bg-white/10 px-4 py-3 text-center text-xs font-black uppercase tracking-[0.16em] text-white"
->
-  Call Now
-</a>
+          <a
+            href={phoneHref}
+            className="rounded-full border border-white/15 bg-white/10 px-4 py-3 text-center text-xs font-black uppercase tracking-[0.16em] text-white"
+          >
+            Call Now
+          </a>
         </div>
       </div>
     </main>
