@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Reveal from "./components/Reveal";
 
-const siteUrl = "https://www.legacy-mobile-detailing.com";
+const siteUrl = "https://legacy-mobile-detailing.com";
 const businessName = "Legacy Mobile Detailing";
 const phoneDisplay = "(505) 643-2170";
 const phoneHref = "tel:15056432170";

@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://www.legacy-mobile-detailing.com/sitemap.xml",
+    sitemap: "https://legacy-mobile-detailing.com/sitemap.xml",
   };
 }
